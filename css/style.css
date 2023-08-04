@@ -33,14 +33,235 @@ button:hover {
     cursor: pointer;
 }
 
+/* extentions */
+
+.extensions {
+    cursor: pointer;
+    position: fixed;
+    display: flex;
+    left: 100%;
+    top: 100%;
+    margin-top: -60px;
+    margin-left: calc(-25vw + 35px);
+}
+
+.fastrep__bg {
+    position: relative;
+    border: 1px solid rgb(0, 0, 107);
+    border-radius: 3px;
+    background-color: rgba(0, 60, 255, 0.05);
+}
+
+.emp__bg {
+    position: relative;
+    margin-left: 5px;
+    border: 1px solid rgb(0, 0, 107);
+    border-radius: 3px;
+    background-color: rgba(0, 60, 255, 0.05);
+}
+
+.wshield__bg {
+    position: relative;
+    margin-left: 5px;
+    border: 1px solid rgb(0, 0, 107);
+    border-radius: 3px;
+    background-color: rgba(0, 60, 255, 0.05);
+}
+
+.fastrep__green {
+    position: absolute;
+    background-color: rgba(0, 255, 34, 0.4);
+    display: none;
+    height: 0%;
+    width: 100%;
+    animation-name: extensiongreen;
+    animation-duration: 8s;
+    animation-timing-function: linear;
+}
+
+.fastrep__red {
+    position: absolute;
+    background-color: rgba(255, 51, 0, 0.4);
+    display: none;
+    height: 0%;
+    width: 100%;
+    animation-name: extensionred;
+    animation-duration: 60s;
+    animation-timing-function: linear;
+}
+
+.emp__green {
+    position: absolute;
+    background-color: rgba(0, 255, 34, 0.4);
+    display: none;
+    height: 0%;
+    width: 100%;
+    animation-name: extensiongreen;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+}
+
+.emp__red {
+    position: absolute;
+    background-color: rgba(255, 51, 0, 0.4);
+    display: none;
+    height: 0%;
+    width: 100%;
+    animation-name: extensionred;
+    animation-duration: 40s;
+    animation-timing-function: linear;
+}
+
+.wshield__green {
+    position: absolute;
+    background-color: rgba(0, 255, 34, 0.4);
+    display: none;
+    height: 0%;
+    width: 100%;
+    animation-name: extensiongreen;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+}
+
+.wshield__red {
+    position: absolute;
+    background-color: rgba(255, 51, 0, 0.4);
+    display: none;
+    height: 0%;
+    width: 100%;
+    animation-name: extensionred;
+    animation-duration: 50s;
+    animation-timing-function: linear;
+}
+
+@keyframes extensiongreen {
+    from {
+        height: 100%;
+        top: 0%;
+    }
+
+    to {
+        top: 100%;
+        height: 0%;
+    }
+}
+
+@keyframes extensionred {
+    from {
+        height: 0%;
+        top: 100%;
+    }
+
+    to {
+        top: 0%;
+        height: 100%;
+    }
+}
+
+.fastrep-green {
+    background-color: rgba(43, 255, 43, 0.4);
+}
+
+
+/* leaderboard */
+
+.menu__leaderboard {
+    font-size: 2rem;
+}
+
+.leaderboard__header {
+    margin-bottom: 7px;
+    font-size: 1.2em;
+    color: rgb(255, 30, 30);
+    font-weight: bold;
+    font-family: monospace;
+}
+
+.leaderboard__main {
+    display: flex;
+    margin-left: 5px;
+    font-size: 0.7em;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.leaderboard__nickname {
+    margin: 0 15px;
+    color: #ccc;
+}
+
+.leaderboard__number {
+    text-align: center;
+}
+
+.leaderboard__num {
+    margin: 3px 0;
+}
+
+.leaderboard__pla {
+    margin: 3px 0;
+    color: white;
+}
+
+.leaderboard__exp {
+    margin: 3px 0;
+}
+
+.leaderboard__player-1 {
+    color: #ffd700;
+}
+
+.leaderboard__player-2 {
+    color: #faeaea;
+    margin-top: 3px;
+}
+
+.leaderboard__player-3 {
+    color: #cd7f32;
+    margin-top: 3px;
+}
+
+/* upgrade */
+
+.menu__upgrade {
+    font-size: 1.8rem;
+}
+
+.upgrade__header-p2 {
+    margin: 5px 0;
+    color: orangered;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.upgrade__main {
+    display: flex;
+    flex-direction: column;
+}
+
+.upgrade__item {
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+}
+
+.upgrade__bonus-text {
+    margin: 0 10px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.upgrade__button {
+    padding: 5px;
+}
+
 
 /* promo */
+
 .menu__promo {
     font-size: 1.8rem;
 }
 
 .promo__header {
     margin-bottom: 10px;
+    font-family: cursive;
 }
 
 .menu__promo input {
@@ -50,9 +271,42 @@ button:hover {
 }
 
 .menu__promo-send {
-    width: 40px;
+    width: 45px;
     padding: 5px;
 }
+
+/* settings */
+
+.menu__settings {
+    font-size: 1.8rem;
+}
+
+.settings__header {
+    margin-bottom: 10px; 
+}
+
+.settings__name-description {
+    font-size: 0.9em;
+    color: rgb(194, 78, 0);
+    font-family: cursive;
+}
+
+.menu__settings input {
+    background-color: black;
+    height: 20px;
+    color: white;
+}
+
+.menu__settings-change {
+    width: 60px;
+    padding: 5px;
+}
+
+.settings__below {
+    margin-top: 5px;
+    font-size: 0.7em;
+}
+
 
 
 /* info */
@@ -144,7 +398,8 @@ button:hover {
 }
 
 .equip__item-text {
-    font-size: 0.9em;
+    font-size: 0.8em;
+    font-family: 'Azeret Mono', monospace;
 }
 
 .equip__guns-title {
@@ -184,9 +439,13 @@ button:hover {
     padding-left: 5px;
 }
 
+.shop__item:last-child {
+    padding-bottom: 25px;
+}
+
 .shop__item-name {
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 2.4rem;
     padding: 5px 0 0 10px;
     margin-bottom: 1vh;
     color: rgb(0, 144, 180);
@@ -261,7 +520,7 @@ button:hover {
 }
 
 .menu__nav-content {
-    height: 40%;
+    height: 70%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -640,6 +899,10 @@ button:hover {
     .menu {
         grid-template-columns: 2fr 11fr;
     }
+
+    .extensions {
+        margin-left: calc(-34vw + 35px);
+    }
 }
 
 @media (max-width: 991px) {
@@ -674,9 +937,9 @@ button:hover {
 
     .menu {
         width: 96vw;
-        height: 80vh;
+        height: 76vh;
         margin-left: -48vw;
-        margin-top: -40vh;
+        margin-top: -38vh;
         font-size: 3.3vw;
     }
 
@@ -689,6 +952,10 @@ button:hover {
         height: 60px;
         margin-top: -60px;
         margin-left: -30px;
+    }
+
+    .extensions {
+        margin-left: calc(-40vw + 35px);
     }
 }
 
@@ -727,11 +994,25 @@ button:hover {
     }
 
     .menu {
-        width: 96vw;
-        height: 80vh;
-        margin-left: -48vw;
-        margin-top: -40vh;
         font-size: 4.5vw;
         grid-template-columns: 2fr 9fr;
+    }
+
+    .upgrade__bonus-text {
+        margin: 0 10px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .extensions {
+        margin-left: calc(-50vw + 38px);
+    }
+
+    .extensions__img {
+        height: 35px;
+        width: 35px;
+    }
+
+    .extensions {
+        margin-top: -45px;
     }
 }

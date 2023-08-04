@@ -1,12 +1,12 @@
 import newUser from './new user.js';
 import {levels, ranks} from '../js/levels.js';
-import {rewards, npcDamage, equip, shipHp, droneParams, promocodes} from './pve.js';
-import {destroySound, deathSound, clickSound} from './sounds.js';
+import {rewards, npcDamage, equip, shipHp, droneParams, upgrades, promocodes} from './pve.js';
+import {destroySound, deathSound, clickSound, empSound, wshieldSound} from './sounds.js';
 import {about, welcome, guide, news} from './info.js';
 import {buyItem, upgradeShip, setUpgradeButton, buyDrone, setDroneButton} from './shop.js';
 import {dead, calcDamage, animateRepair, animateDamage, autoMode, displayProfileInfo, updateRank, updateLevel} from './functions.js';
 import {animateShip} from './animations.js';
-import {openMenu, openMenuSection, addEquipItem, selectEquipItem, showEquipQuantity, promocodeHandler} from './menu.js';
+import {openMenu, openMenuSection, addEquipItem, selectEquipItem, showEquipQuantity, promocodeHandler, upgradeShield, displayUpgradeInfo, showLeaderboard, changeNickname} from './menu.js';
 
 window.onerror = () => {
     localStorage.clear();
@@ -19,7 +19,7 @@ animateShip();
 // initialization
 const pve = document.querySelector('.pve__enemies');
 const shopItems = document.querySelector('.shop__items');
-const upgradeButton = document.querySelector("[data-name='ship']");
+const shipUpgradeButton = document.querySelector("[data-name='ship']");
 const buyDroneButton = document.querySelector("[data-name='drone']");
 
 const hpLine = document.querySelector('.ship__hp-line');
@@ -34,7 +34,6 @@ const damageContainer = document.querySelector('.ship__damage-container');
 const rank = document.getElementById('ranks');
 const nickname = document.querySelector('.ship__nickname');
 
-const equipInfo = document.getElementById('info__equip');
 const destroysStats = document.getElementById('info__destroys');
 const aboutInfo = document.getElementById('info__about');
 const howToPlay = document.getElementById('info__how');
@@ -44,6 +43,7 @@ const autoButton = document.querySelector('.auto__button');
 
 const menu = document.querySelector('.menu');
 const menuEquip = document.querySelector('.menu__equip');
+const menuUpgrade = document.querySelector('.menu__upgrade');
 
 const menuEquipGuns = document.querySelector('.equip__lg');
 const menuEquipShields = document.querySelector('.equip__db');
@@ -51,8 +51,20 @@ const menuEquipShields = document.querySelector('.equip__db');
 const menuButton = document.querySelector('.wrapper__menu-button');
 const menuNavigation = document.querySelector('.menu__nav-content');
 const menuQuitButton = document.querySelector('.menu__nav-quit');
-
 const promoButton = document.querySelector('.menu__promo-send');
+const nameChangeButton = document.querySelector('.menu__settings-change');
+
+const fastrep = document.querySelector('#fastrep');
+const fastrepGreen = document.querySelector('.fastrep__green');
+const fastrepRed = document.querySelector('.fastrep__red');
+
+const wshield = document.querySelector('#wshield');
+const wshieldGreen = document.querySelector('.wshield__green');
+const wshieldRed = document.querySelector('.wshield__red');
+
+const emp = document.querySelector('#emp');
+const empGreen = document.querySelector('.emp__green');
+const empRed = document.querySelector('.emp__red');
 
 // parameters from CSS:
 const hpLineWidth = parseInt(getComputedStyle(hpLine).width);
@@ -60,11 +72,16 @@ const shLineWidth = parseInt(getComputedStyle(shLine).width);
 
 // global event listeners
 document.onkeydown = e => {
+    if (document.activeElement.tagName === 'INPUT') return;
+
     if (e.code === 'KeyQ') autoMode(e, user, autoButton, npcDamage);
     if (e.code === 'KeyP') {
-        if (document.activeElement.tagName === 'INPUT') return;
         openMenu(e, menu, user, menuEquipGuns, menuEquipShields);
     }
+
+    if (e.code === 'KeyS') activatefastrep();
+    if (e.code === 'KeyG') activateWshield();
+    if (e.code === 'KeyF') activateEmp();
 }
 
 // registration
@@ -93,8 +110,11 @@ function displayData() {
     rank.className = `rank${user.rank}`;
 
     setDroneButton(user, droneParams, buyDroneButton);
-    setUpgradeButton(user, shipHp, upgradeButton);
+    setUpgradeButton(user, shipHp, shipUpgradeButton);
     displayProfileInfo(user, ranks);
+
+    displayUpgradeInfo(user, upgrades, null, equip, menuUpgrade);
+    showLeaderboard();
     updateHp();
 }
 
@@ -114,9 +134,17 @@ autoButton.onclick = e => autoMode(e, user, autoButton, npcDamage);
 menuButton.onclick = menuQuitButton.onclick = e => openMenu(e, menu, user, menuEquipGuns, menuEquipShields);
 menuNavigation.onclick = e => openMenuSection(e, menu, menuNavigation);
 promoButton.onclick = e => promocodeHandler(e, user, promocodes, displayProfileInfo, ranks, saveData);
+nameChangeButton.onclick = e => changeNickname(e, user, nickname, saveData);
 
 menuEquip.addEventListener('click', e => {
     selectEquipItem(e, menuEquip, user, equip, updateHp, displayProfileInfo, ranks, saveData);
+});
+
+menuUpgrade.addEventListener('click', e => {
+    const isMaxShield = user.sh === user.maxSh;
+    const isBought = upgradeShield(e, user, upgrades, updateHp, displayProfileInfo, ranks, saveData);
+    if (isMaxShield || isBought) repair();
+    repairSh = repairPersentSh / 100 * user.maxSh;
 });
 
 let timerDamage;
@@ -229,8 +257,89 @@ function saveData() {
     localStorage.setItem('user', JSON.stringify(user));
 }
 
-equipInfo.onclick = () => alert(JSON.stringify(user.equip, null, 2));
 destroysStats.onclick = () => alert(JSON.stringify(user.destroys, null, 2));
 aboutInfo.onclick = () => alert(about);
 howToPlay.onclick = () => alert(guide);
 newsButton.onclick = () => alert(news);
+
+const fastrepDuration = 8 * 1000;
+const fastrepCooldown = 60 * 1000;
+const fastrepRepairPersent = 0.16;
+fastrep.onclick = e => activatefastrep(e);
+function activatefastrep(e) {
+    const now = Date.now();
+    if (now - user.extensions.fastrep >= fastrepCooldown + fastrepDuration) {
+        user.extensions.fastrep = now;
+        fastrepGreen.style.display = 'block';
+
+        clearTimeout(timerDamage);
+
+        let repair = user.maxHp * fastrepRepairPersent;
+        if (user.hp < user.maxHp - repair) {
+            user.hp += repair;
+        } else {
+            user.hp = user.maxHp;
+        }
+
+        animateRepair(user, repair, damageContainer, timerDamage, true);
+        updateHp();
+        saveData();
+
+        let timerFastrep = setInterval(() => {
+            if (user.hp < user.maxHp - repair) {
+                user.hp += repair;
+            } else {
+                user.hp = user.maxHp;
+            }
+
+            animateRepair(user, repair, damageContainer, timerDamage, fastrep);
+            updateHp();
+            saveData();
+        }, 1000);
+    
+        setTimeout(() => {
+            fastrepGreen.style.display = 'none';
+            fastrepRed.style.display = 'block';
+            setTimeout(() => fastrepRed.style.display = 'none', fastrepCooldown);
+            clearInterval(timerFastrep);
+        }, fastrepDuration);
+    }
+}
+
+const empDuration = 3 * 1000;
+const empCooldown = 40 * 1000;
+emp.onclick = e => activateEmp(e);
+function activateEmp(e) {
+    const now = Date.now();
+    if (now - user.extensions.emp >= empCooldown + empDuration) {
+        empSound.play();
+
+        user.extensions.emp = now;
+        empGreen.style.display = 'block';
+    
+        setTimeout(() => {
+            empGreen.style.display = 'none';
+            empRed.style.display = 'block';
+            setTimeout(() => empRed.style.display = 'none', empCooldown);
+        }, empDuration);
+    }
+}
+
+const wshieldDuration = 3 * 1000;
+const wshieldCooldown = 50 * 1000;
+wshield.onclick = e => activateWshield(e);
+function activateWshield(e) {
+    const now = Date.now();
+    if (now - user.extensions.wshield >= wshieldCooldown + wshieldDuration) {
+        wshieldSound.play();
+
+        user.extensions.wshield = now;
+        wshieldGreen.style.display = 'block';
+    
+        setTimeout(() => {
+            wshieldGreen.style.display = 'none';
+            wshieldRed.style.display = 'block';
+            setTimeout(() => wshieldRed.style.display = 'none', wshieldCooldown);
+        }, wshieldDuration);
+    }
+}

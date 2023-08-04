@@ -38,7 +38,7 @@ function buyItem(user, equip, button, sound) {
     user[currency] -= requiredAmount;
 
     if (itemType === 'lg') user.damage += equip[itemName];
-    if (itemType === 'db') user.maxSh += equip[itemName];
+    if (itemType === 'db') user.maxSh += equip[itemName] + user.upgrades[itemName] * 1000;
 
     user.equip[itemName]++;
 

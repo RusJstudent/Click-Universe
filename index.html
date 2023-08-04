@@ -42,7 +42,7 @@
                     </div>
                     <div class="shop__item">
                         <div class="shop__item-name">Laser gun 3</div>
-                        <div class="shop__item-description">Damage: 270</div>
+                        <div class="shop__item-description">Damage: 265</div>
                         <div class="shop__item-content">
                             <img src="images/equipment/lg3.png" width="55" height="55">
                             <button class="shop__button" data-plt="10e3" data-name="lg3">10k plt</button>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="shop__item">
                         <div class="shop__item-name">Shield type 1</div>
-                        <div class="shop__item-description">Capacity: 2 000</div>
+                        <div class="shop__item-description">Capacity: 1 000</div>
                         <div class="shop__item-content">
                             <img src="images/equipment/db1.png" width="55" height="55">
                             <button class="shop__button" data-btc="45e3" data-name="db1">45k btc</button>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="shop__item">
                         <div class="shop__item-name">Shield type 2</div>
-                        <div class="shop__item-description">Capacity: 10 000</div>
+                        <div class="shop__item-description">Capacity: 4 000</div>
                         <div class="shop__item-content">
                             <img src="images/equipment/db2.png" width="55" height="55">
                             <button class="shop__button" data-btc="600e3" data-name="db2">600k btc</button>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="shop__item">
                         <div class="shop__item-name">Shield type 3</div>
-                        <div class="shop__item-description">Capacity: 40 000</div>
+                        <div class="shop__item-description">Capacity: 10 000</div>
                         <div class="shop__item-content">
                             <img src="images/equipment/db3.png" width="55" height="55">
                             <button class="shop__button" data-plt="25e3" data-name="db3">25k plt</button>
@@ -117,13 +117,66 @@
                 </div>
             </div>
 
+            <div class="menu__section menu__upgrade">
+                <div class="menu__container">
+                    <div class="upgrade__header">
+                        <p class="upgrade__header-p1">Choose shield you want to upgrade</p>
+                        <p class="upgrade__header-p2">Each upgrade adds 1000 capacity to chosen type</p>
+                    </div>
+                    <div class="upgrade__main">
+                        <div class="upgrade__item">
+                            <img src="images/equipment/db1.png" width="55" height="55">
+                            <div class="upgrade__bonus-text">capacity: <span data-upgrade-shield="db1" class="upgrage__bonus-value"></span></div>
+                            <button data-name="db1" class="upgrade__button"></button>
+                        </div>
+                        <div class="upgrade__item">
+                            <img src="images/equipment/db2.png" width="55" height="55">
+                            <div class="upgrade__bonus-text">capacity: <span data-upgrade-shield="db2" class="upgrage__bonus-value"></span></div>
+                            <button data-name="db2" class="upgrade__button"></button>
+                        </div>
+                        <div class="upgrade__item">
+                            <img src="images/equipment/db3.png" width="55" height="55">
+                            <div class="upgrade__bonus-text">capacity: <span data-upgrade-shield="db3" class="upgrage__bonus-value"></span></div>
+                            <button data-name="db3" class="upgrade__button"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="menu__section menu__promo">
                 <div class="menu__container">
                     <div class="promo__header">
-                        If you know promocode, enter it below
+                        Enter promocode you know about below or try to guess :)
                     </div>
                     <input class="menu__promo-input" type="value">
                     <button class="menu__promo-send">send</button>
+                </div>
+            </div>
+
+            <div class="menu__section menu__leaderboard">
+                <div class="menu__container">
+                    <div class="leaderboard__header">
+                        Best players
+                    </div>
+                    <div class="leaderboard__main">
+                        <div class="leaderboard__number"></div>
+                        <div class="leaderboard__nickname"></div>
+                        <div class="leaderboard__experience"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu__section menu__settings">
+                <div class="menu__container">
+                    <div class="settings__header"></div>
+                    <div class="settings__main">
+                        <div class="settings__name">
+                            <div class="settings__name-description">Nickname change</div>
+                            <input class="menu__settings-input" type="value">
+                            <button class="menu__settings-change">change</button>
+                            <p class="settings__below">Note you can change nickname only once!</p>
+                        </div>
+                    </div>
                 </div>
             </div>
     
@@ -132,10 +185,6 @@
                     <div class="info__button">
                         <span class="btn-1" id="info__destroys">Destroys stats</span>
                     </div>
-
-                    <div class="info__button">
-                        <span class="btn-1" id="info__equip">Equipment</span>
-                    </div> 
         
                     <div class="info__button">
                         <span class="btn-1"  id="info__how">Guide</span>
@@ -162,18 +211,21 @@
                     <div class="menu__nav-elem menu__nav-equip">
                         <div class="menu__nav-elem-text">Equipment</div>
                     </div>
+                    <div class="menu__nav-elem menu__nav-upgrade">
+                        <div class="menu__nav-elem-text">Upgrade</div>
+                    </div>
                     <div class="menu__nav-elem menu__nav-promo">
                         <div class="menu__nav-elem-text">Promo</div>
+                    </div>
+                    <div class="menu__nav-elem menu__nav-leaderboard">
+                        <div class="menu__nav-elem-text">Leaderboard</div>
                     </div>
                     <div class="menu__nav-elem menu__nav-info">
                         <div class="menu__nav-elem-text">Info</div>
                     </div>
-                    <!-- <div class="menu__nav-elem menu__nav-leaderbord">
-                        <div class="menu__nav-elem-text">Leaderbord</div>
-                    </div> -->
-                    <!-- <div class="menu__nav-elem menu__nav-settings">
+                    <div class="menu__nav-elem menu__nav-settings">
                         <div class="menu__nav-elem-text">Settings</div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
             <div class="menu__quit menu__nav-quit">
@@ -299,6 +351,24 @@
         </div>
 
         <div class="wrapper__menu-button"></div>
+
+        <div class="extensions">
+                <div class="fastrep__bg">
+                    <div class="fastrep__green"></div>
+                    <div class="fastrep__red"></div>
+                    <img class="extensions__img" id="fastrep" height="50" width="50" src="images/extras/ext_slot_fastrep.png" alt="fastrep">
+                </div>
+                <div class="emp__bg">
+                    <div class="emp__green"></div>
+                    <div class="emp__red"></div>
+                    <img class="extensions__img" id="emp" height="50" width="50" src="images/extras/ext_slot_emp.png" alt="emp">
+                </div>
+                <div class="emp__bg">
+                    <div class="wshield__green"></div>
+                    <div class="wshield__red"></div>
+                    <img class="extensions__img" id="wshield" height="50" width="50" src="images/extras/ext_slot_wshield.png" alt="wshield">
+                </div>
+        </div>
     </div>
 </body>
 

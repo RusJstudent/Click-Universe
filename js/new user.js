@@ -40,8 +40,19 @@ const newUser = {
         db3: 0,
         drones: 0,
     },
+    upgrades: {
+        db1: 0,
+        db2: 0,
+        db3: 0,
+    },
+    extensions: {
+        fastrep: 0,
+        emp: 0,
+        wshield: 0,
+    },
+    nameChanged: 'no',
     registration: now,
     destroys: zeroDestroys,
     promo: [],
-    version: 9,
+    version: 11,
 };

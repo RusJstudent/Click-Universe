@@ -27,13 +27,28 @@ function calcDamage(user, damage) {
 
     const persentageDmg = user.damage / 1000;
     let decreaseOfDmg = 1 / 100 * persentageDmg * damage;
-    let receivedDmg = Math.round(damage - decreaseOfDmg);
+    let receivedDmg = damage - decreaseOfDmg;
 
-    if (Math.random() < 0.07) receivedDmg = 0;
+    const now = Date.now();
 
-    let deviation = Math.floor(Math.random() * damageRange * receivedDmg);
+    let potentialDamage = receivedDmg;
+    if (now - user.extensions.wshield < 3000) {
+        receivedDmg *= 0.3;
+    }
+
+    if (now - user.extensions.emp < 3000) {
+        if (Math.random() < 0.6) receivedDmg = 0;
+    } else if (Math.random() < 0.07) {
+        receivedDmg = 0;
+    }
+
+    if (now - user.extensions.wshield < 3000 && now - user.extensions.emp < 3000) {
+        receivedDmg = potentialDamage;
+    }
+
+    let deviation = Math.random() * damageRange * receivedDmg;
     if (Math.random() < 0.5) deviation = -deviation;
-    receivedDmg += deviation;
+    receivedDmg = Math.round(receivedDmg + deviation);
     result.damage = receivedDmg;
 
     let damageBlocked = Math.min(receivedDmg * shieldAbsorption, user.sh);
@@ -44,7 +59,7 @@ function calcDamage(user, damage) {
     return result;
 }
 
-function animateRepair(user, repairHp, damageContainer, timerDamage) {
+function animateRepair(user, repairHp, damageContainer, timerDamage, fastrep) {
     clearTimeout(timerDamage);
     let repairText = 0;
 
@@ -54,7 +69,7 @@ function animateRepair(user, repairHp, damageContainer, timerDamage) {
         repairText = user.maxHp - user.hp;
     }
 
-    if (repairText > 0) {
+    if (repairText > 0 || fastrep) {
         let repairElem = document.createElement('div');
         repairElem.className = 'ship__damage ship__repair';
         let formatted = addSpaces(String(repairText));

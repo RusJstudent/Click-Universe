@@ -26,55 +26,42 @@ Shields and ship upgrades increase your total hitpoints.
 You can have maximum 5 guns and shields, 
 but each drone increases that number!
 
-Promocode: "fun game".
+Fastrep heals you depending on your hp amount.
+Emp increases miss probability.
+Wshield decreases incoming damage.  
+Don't use emp and wshield in same time.
 
-If you are playing from PC, there are few key bindings:
+Promocode: "p4f".
+
+For PC players there are some key bindings:
 "Q" for autofarm.
-"P" to open/close menu.`;
+"P" to open/close menu.
+"S" to use fastrep extention.
+"F" to use EMP extention.
+"G" to use WShield extention.`;
 
-const about = `Game created 29.08.21 and updates every day since then.
+const about = `Game created in 11 days (29.08.21 - 9.09.21).
 
-A lot of changes are planned, hope you will enjoy it!
+Discord group: https://discord.com/invite/4jAK9vDdqJ`;
 
-Join our group:
-Discord server: https://discord.com/invite/4jAK9vDdqJ
-Dev contacts: EvilYou#1118`;
-
-const news = `Leaderboard is planned in next version.
-
-Send screenshots of your progress 
-in discord group to get into it.
-Note: screenshot must be made in latest version 
-after less than 24 hours since it published`;
+const news = `Send screenshots of your progress 
+in discord group if you want to appear in the leaderboard`;
 
 /* 
 Discord group: https://discord.com/invite/4jAK9vDdqJ
 
-send screenshots of your progress. I'll add you to leaderboard. 
-Note: screenshot must be made from the latest version after less than 24 hours since it published. 
-No one will have to spend too much time to become top-1.
-
 made today:
-- menu improved. Number of available items is visible in equipment section.
-- promocodes added
+- settings with nickname change option
+- extensions
 
 soon: 
-- offline leaderbord
-- small unti-cheat protection
 
 probably (in future):
-- extensions
 - images for each npc (need images with opacity)
 - quests
 - warranks
-- upgrades
-- settings
-
-problems:
-- not detected
 
 ideas:
 - make warranks available for special promocodes or for very high exp
-- fastrep may be upgraded, wshield blocks 80% of dmg, emp increases missed by 10 times, entrans heals during fight + animation and sounds.
-- в настройках опции отключения анимации и звука
+- sound disable option
 */
