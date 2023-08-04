@@ -1,35 +1,26 @@
 import newUser from './new user.js';
 import {levels, ranks} from '../js/levels.js';
-import {rewards, npcDamage, equip} from './pve.js';
-import {destroySound, deathSound, clickSound, loginSound} from './sounds.js';
+import {rewards, npcDamage, equip, shipHp, droneParams} from './pve.js';
+import {destroySound, deathSound, clickSound} from './sounds.js';
 import {about, welcome, guide} from './info.js';
-import {addSpaces, calcDamage} from './functions.js';
+import {buyItem, sellItem, upgradeShip, setUpgradeButton, buyDrone, setDroneButton} from './shop.js';
+import {addSpaces, calcDamage, animateShip, animateRepair} from './functions.js';
 
 // global event listeners
-window.onerror = function() {
+window.onerror = () => {
     localStorage.clear();
-}
-
+    location.reload();
+};
 document.body.onpointerdown = e => false;
 
-// little ship animation
-{
-    let deg = 0;
-    let increase = true;
-    let min = -10;
-    let max = 10;
-    let ship = document.querySelector('.ship__image');
-    setInterval(() => {
-        ship.style.transform = `rotate(${deg}deg)`;
-        if (deg === min) increase = true;
-        if (deg === max) increase = false;
-        increase ? deg++ : deg--;
-    }, 60);
-}
+// animation
+animateShip();
 
 // initialization
 const pve = document.querySelector('.pve__enemies');
 const shopItems = document.querySelector('.shop__items');
+const upgradeButton = document.querySelector("[data-name='ship']");
+const buyDroneButton = document.querySelector("[data-name='drone']");
 
 const hpLine = document.querySelector('.ship__hp-line');
 const hpValue = document.getElementById('hp_value');
@@ -37,18 +28,24 @@ const hpMax = document.getElementById('hp_max');
 const shLine = document.querySelector('.ship__sh-line');
 const shValue = document.getElementById('sh_value');
 const shMax = document.getElementById('sh_max');
-const displayDmg = document.querySelector('.ship__damage');
+const damageContainer = document.querySelector('.ship__damage-container');
 
-const exp = document.getElementById('exp');
-const btc = document.getElementById('btc');
-const lvl = document.getElementById('lvl');
-const plt = document.getElementById('plt');
+const exp = document.querySelector('.profile__exp');
+const btc = document.querySelector('.profile__btc');
+const lvl = document.querySelector('.profile__lvl');
+const plt = document.querySelector('.profile__plt');
+const rnk = document.querySelector('.profile__rnk');
+const dmg = document.querySelector('.profile__dmg');
 
 const rank = document.getElementById('ranks');
 const nickname = document.querySelector('.ship__nickname');
+
+const equipInfo = document.getElementById('info__equipment');
 const destroysStats = document.getElementById('info__destroys');
 const aboutInfo = document.getElementById('info__about');
 const howToPlay = document.getElementById('info__how');
+
+const autoButton = document.querySelector('.auto__button');
 
 // parameters from CSS:
 const hpLineWidth = parseInt(getComputedStyle(hpLine).width);
@@ -65,7 +62,6 @@ function getUserData() {
 }
 
 function createNewUser() {
-    loginSound.play();
     user = newUser;
 
     alert(welcome);
@@ -79,32 +75,63 @@ function displayData() {
     nickname.textContent = user.nickname;
     rank.className = `rank${user.rank}`;
 
+    setDroneButton(user, droneParams, buyDroneButton);
+    setUpgradeButton(user, shipHp, upgradeButton);
     displayProfileInfo();
     updateHp();
 }
 
 // repair parameters
-const repairPersentHp = 6;
-const repairPersentSh = 21;
+const repairPersentHp = 5;
+const repairPersentSh = 18;
 let repairHp = repairPersentHp / 100 * user.maxHp;
 let repairSh = repairPersentSh / 100 * user.maxSh;
 
 const repairTimeout = 3000;
-const repairFrequency = 1000;
+const repairFrequency = 1200;
 
 let repairId = setTimeout(repair, repairFrequency);
 
 // event listeners
+let timerAuto;
+autoButton.onclick = e => {
+    e.currentTarget.classList.toggle('auto__button-off');
+    const enemy = Object.keys(npcDamage)[user.rank - 1];
+    const enemyButton = document.querySelector(`[data-enemy=${enemy}]`);
+    let event = new CustomEvent('click', {bubbles: true});
+    if (e.currentTarget.classList.contains('auto__button-off')) {
+        clearInterval(timerAuto);
+        return;
+    }
+
+    enemyButton.dispatchEvent(event);
+    timerAuto = setInterval(() => {
+        enemyButton.dispatchEvent(event);
+    }, 200);
+}
+
+let timerDamage;
 pve.addEventListener('click', function(e) {
     let npc = e.target.dataset.enemy;
     if (!npc) return;
 
-    clearTimeout(repairId);
-    repairId = setTimeout(repair, repairTimeout);
-
     const result = calcDamage(user, npcDamage[npc]);
-    displayDmg.textContent = addSpaces(String(result.damage));
-    displayDmg.classList.remove('ship__damage-animation');
+
+    clearTimeout(timerDamage);
+    let damage = document.createElement('div');
+    damage.className = 'ship__damage';
+
+    if (result.damage === 0) {
+        damage.textContent = 'MISS';
+    } else {
+        clearTimeout(repairId);
+        repairId = setTimeout(repair, repairTimeout);
+
+        damage.textContent = addSpaces(String(result.damage));
+    }
+
+    damageContainer.append(damage);
+    timerDamage = setTimeout(() => damageContainer.innerHTML = '', 2200);
 
     if (result.isDead) {
         dead();
@@ -132,47 +159,43 @@ pve.addEventListener('click', function(e) {
 pve.onkeydown = e => !e.repeat;
 
 shopItems.addEventListener('click', function(e) {
-    let button = e.target;
-    if (e.target.tagName !== 'BUTTON') return;
+    const button = e.target.closest('button');
+    if (!button || !shopItems.contains(button)) return;
 
-    const currency = button.dataset.btc ? 'btc' : 'plt';
-
-    const requiredAmount = button.dataset[currency];
-    const currentAmount = currency === 'btc' ? user.btc : user.plt;
     const itemName = button.dataset.name;
     const itemType = itemName.slice(0, 2);
 
-    if (user.equip[itemName] >= 10) {
-        alert(`You already have max ${itemName}`);
-        return;
+    if (itemName === 'drone') {
+        const droneBought = buyDrone(user, droneParams, button, clickSound);
+        if (!droneBought) return;
+    } else if (itemName === 'ship') {
+        const upgrade = upgradeShip(user, shipHp, button, clickSound)
+        if (!upgrade) return;
+    } else if (button.classList.contains('shop__sell')) {
+        const sold = sellItem(user, equip, button, clickSound);
+        if (!sold) return;
+    } else {
+        const bought = buyItem(user, equip, button, clickSound);
+        if (!bought) return;
     }
 
-    if (currentAmount < requiredAmount) {
-        alert(`Not enough ${currency}`);
-        return;
-    }
-
-    clickSound.play();
-
-    user[currency] -= requiredAmount;
-
-    if (itemType === 'lg') user.damage += equip[itemName];
-    if (itemType === 'db') {
-        user.maxSh += equip[itemName];
+    if (itemType === 'db' || itemName === 'ship') {
+        repairHp = repairPersentHp / 100 * user.maxHp;
         repairSh = repairPersentSh / 100 * user.maxSh;
         repair();
     }
 
-    user.equip[itemName]++;
     displayProfileInfo();
     saveData();
 });
 
-destroysStats.onclick = e => alert(JSON.stringify(user.destroys, null, 2));
-aboutInfo.onclick = e => alert(about);
-howToPlay.onclick = e => alert(guide);
+equipInfo.onclick = () => alert(JSON.stringify(user.equip, null, 2));
+destroysStats.onclick = () => alert(JSON.stringify(user.destroys, null, 2));
+aboutInfo.onclick = () => alert(about);
+howToPlay.onclick = () => alert(guide);
 
 function dead() {
+    clearInterval(timerAuto);
     localStorage.clear();
 
     deathSound.play();
@@ -182,9 +205,9 @@ function dead() {
 }
 
 function repair() {
-    displayDmg.textContent = '';
-    displayDmg.classList.add('ship__damage-animation');
     clearTimeout(repairId);
+
+    animateRepair(user, repairHp, damageContainer, timerDamage);
 
     if (user.hp < user.maxHp - repairHp) {
         user.hp += repairHp;
@@ -227,8 +250,6 @@ function updateLevel() {
 }
 
 function updateRank() {
-    if (user.rank === "A" || user.rank === "O") return;
-
     let currentRank = ranks.find( rank => rank[1] >= user.exp )[0] - 1;
     user.rank = currentRank;
 
@@ -250,4 +271,9 @@ function displayProfileInfo() {
     plt.textContent = addSpaces(pltStr);
 
     lvl.textContent = user.lvl;
+
+    let dmgStr = (user.damage / 10).toString();
+    dmg.textContent = addSpaces(dmgStr);
+
+    rnk.textContent = ranks.find( rank => rank[0] === user.rank )[2];
 }

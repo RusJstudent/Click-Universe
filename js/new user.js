@@ -1,6 +1,6 @@
 export {newUser as default};
 
-const maxHp = 8e3;
+const maxHp = 1e3;
 const maxSh = 1e3;
 
 const formatter = new Intl.DateTimeFormat('ru', { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', });
@@ -21,11 +21,11 @@ const zeroDestroys = {
 
 const newUser = {
     exp: 0,
-    btc: 0,
+    btc: 100e3,
     lvl: 1,
-    plt: 0,
+    plt: 10e3,
     rank: 1,
-    nickname: 'Champion',
+    nickname: '',
     hp: maxHp,
     maxHp: maxHp,
     sh: maxSh,
@@ -38,6 +38,7 @@ const newUser = {
         db1: 0,
         db2: 0,
         db3: 0,
+        drones: 0,
     },
     registration: now,
     destroys: zeroDestroys,

@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Click Universe</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/style.css">
     <script type="module" src="js/script.js"></script>
 </head>
@@ -18,44 +23,96 @@
                 Shop
             </div>
             <div class="shop__items">
-                <div>
+                <div class="shop__item">
                     <img src="images/equipment/lg1.png" width="40" height="40" alt="laser gun 1">
-                    <button class="shop-button" data-btc="40e3" data-name="lg1">40k btc</button>
+                    <div class="shop__buttons">
+                        <button class="shop__button shop__buy" data-btc="25e3" data-name="lg1">25k btc</button>
+                        <button class="shop__button shop__sell" data-name="lg1"><img src="images/icons/remove-icon.jpg"></button>
+                    </div>
                 </div>
-                <div>
+                <div class="shop__item">
                     <img src="images/equipment/lg2.png" width="40" height="40" alt="laser gun 2">
-                    <button class="shop-button" data-btc="250e3" data-name="lg2">250k btc</button>
+                    <div class="shop__buttons">
+                        <button class="shop__button shop__buy" data-btc="270e3" data-name="lg2">270k btc</button>
+                        <button class="shop__button shop__sell" data-name="lg2"><img src="images/icons/remove-icon.jpg"></button>
+                    </div>
                 </div>
-                <div>
+                <div class="shop__item">
                     <img src="images/equipment/lg3.png" width="40" height="40" alt="laser gun 3">
-                    <button class="shop-button" data-plt="10e3" data-name="lg3">10k plt</button>
+                    <div class="shop__buttons">
+                        <button class="shop__button shop__buy" data-plt="10e3" data-name="lg3">10k plt</button>
+                        <button class="shop__button shop__sell" data-name="lg3"><img src="images/icons/remove-icon.jpg"></button>
+                    </div>
                 </div>
-                <div>
+                <div class="shop__item">
                     <img src="images/equipment/db1.png" width="40" height="40" alt="shield 1">
-                    <button class="shop-button" data-btc="100e3" data-name="db1">100k btc</button>
+                    <div class="shop__buttons">
+                        <button class="shop__button shop__buy" data-btc="45e3" data-name="db1">45k btc</button>
+                        <button class="shop__button shop__sell" data-name="db1"><img src="images/icons/remove-icon.jpg"></button>
+                    </div>
                 </div>
-                <div>
+                <div class="shop__item">
                     <img src="images/equipment/db2.png" width="40" height="40" alt="shield 2">
-                    <button class="shop-button" data-btc="5000e3" data-name="db2">5m btc</button>
+                    <div class="shop__buttons">
+                        <button class="shop__button shop__buy" data-btc="600e3" data-name="db2">600k btc</button>
+                        <button class="shop__button shop__sell" data-name="db2"><img src="images/icons/remove-icon.jpg"></button>
+                    </div>
                 </div>
-                <div>
+                <div class="shop__item">
                     <img src="images/equipment/db3.png" width="40" height="40" alt="shield 3">
-                    <button class="shop-button" data-plt="30e3" data-name="db3">30k plt</button>
+                    <div class="shop__buttons">
+                        <button class="shop__button shop__buy" data-plt="25e3" data-name="db3">25k plt</button>
+                        <button class="shop__button shop__sell" data-name="db3"><img src="images/icons/remove-icon.jpg"></button>
+                    </div>
+                </div>
+                <div class="shop__item">
+                    <img src="images/equipment/drone.png" width="40" height="40" alt="drone">
+                    <div class="shop__buttons">
+                        <button class="shop__button shop__buy" data-name="drone"></button>
+                    </div>
+                </div>
+                <div class="shop__item">
+                    <img src="images/icons/upgrade_arrow.jpg" width="40" height="40" alt="ship upgrade">
+                    <div class="shop__buttons">
+                        <button class="shop__button shop__buy" data-name="ship"></button>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="profile">
-            <div class="exp profile__inner"><span class="stats">exp</span><span class="profile__value" id="exp">0</span></div>
-            <div class="lvl profile__inner"><span class="stats">btc</span><span class="profile__value" id="btc">0</span></div>
-            <div class="btc profile__inner"><span class="stats">lvl</span><span class="profile__value" id="lvl">1</span></div>
-            <div class="plt profile__inner"><span class="stats">plt</span><span class="profile__value" id="plt">0</span></div>
+            <div class="profile__elem">
+                <span class="stats">exp</span>
+                <span class="profile__value profile__exp"></span>
+            </div>
+            <div class="profile__elem">
+                <span class="stats">btc</span>
+                <span class="profile__value profile__btc"></span>
+            </div>
+            <div class="profile__elem">
+                <span class="stats">lvl</span>
+                <span class="profile__value profile__lvl"></span>
+            </div>
+            <div class="profile__elem">
+                <span class="stats">plt</span>
+                <span class="profile__value profile__plt"></span>
+            </div>
+            <div class="profile__elem">
+                <span class="stats">dmg</span>
+                <span class="profile__value profile__dmg"></span>
+            </div>
+            <div class="profile__elem">
+                <span class="stats">rank</span>
+                <span class="profile__value profile__rnk"></span>
+            </div>
         </div>
 
         <div class="ship-wrapper">
             <div class="ship">
 
-                <div class="ship__damage ship__damage-animation"></div>
+                <div class="ship__damage-container">
+                    <div class="ship__damage ship__damage-animation"></div>
+                </div>
 
                 <div class="ship__above">
                     <div class="ship__hp">
@@ -94,7 +151,7 @@
         <div class="pve">
             <div class="pve__container">
                 <div class="pve__description">
-                    <div class="pve__description-text">Choose enemy</div>
+                    <div class="pve__description-text">PvE</div>
                 </div>
                 <div class="pve__row">
                     <div class="pve__enemies">
@@ -134,23 +191,25 @@
         </div>
 
         <div class="info">
+            <div class="info__equipment">
+                <button id="info__equipment">Equipment</button>
+            </div>
+
             <div class="info__destroys">
-                <button id="info__destroys">
-                    My destroys
-                </button>
+                <button id="info__destroys">Destroys</button>
             </div>
 
             <div class="info__how">
-                <button id="info__how">
-                    How to play
-                </button>
+                <button id="info__how">How to play</button>
             </div>
     
             <div class="info__about">
-                <button id="info__about">
-                    Game about
-                </button>
+                <button id="info__about">Game about</button>
             </div>
+        </div>
+
+        <div class="auto">
+            <button class="auto__button auto__button-off">Auto</button>
         </div>
     </div>
 </body>

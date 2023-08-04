@@ -5,14 +5,21 @@
 
 body {
     background: url(../images/bg.jpg) no-repeat;
+    background-size: cover;
     z-index: -1;
     overflow: hidden;
 
     font-size: 15px;
     font-family: sans-serif;
 
-    touch-action: none;
     cursor: default;
+
+    touch-action: none;
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+
+    font-family: 'Azeret Mono', monospace;
 }
 
 .wrapper {
@@ -20,7 +27,6 @@ body {
 }
 
 button:hover {
-    background-color:rgba(136, 48, 121);
     cursor: pointer;
 }
 
@@ -28,9 +34,8 @@ button:hover {
 /* profile */
 
 .profile {
-    height: 70px;
     width: 400px;
-    background-color: rgba(219, 219, 255, 0.1);
+    background-color: rgba(110, 110, 255, 0.1);
     position: relative;
     left: 100%;
     margin-left: -400px;
@@ -40,24 +45,43 @@ button:hover {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    padding-left: 4px;
+    padding-left: 2px;
+    z-index: -1;
 }
 
-.profile__inner {
+.profile__elem {
     width: 50%;
+    margin: 0.1em 0;
+}
+
+.profile__value {
+    position: relative;
+    left: -3px;
+}
+
+.profile__rnk {
+    letter-spacing: -0.05em;
 }
 
 .stats {
     color: rgb(92, 92, 233);
-    font-size: 1.5em;
+    font-size: 1.25em;
 }
 
-.profile__value {
-    padding-left: 4px;
+/* .profile__value {
+    padding-left: 0.08em;
 }
+
+.profile__rnk {
+    letter-spacing: 0.05em;
+} */
 
 
 /* ship */
+
+.ship {
+    font-family: Arial, Helvetica;
+}
 
 .ship-wrapper {
     height: 100%;
@@ -82,41 +106,61 @@ button:hover {
 .ship__damage {
     position: absolute;
     color: rgb(204, 151, 5);
-    /* text-shadow: inset 0px 0px 2px black; */
     letter-spacing: 0.1em;
     top: 50%;
     left: 50%;
-    margin-top: -140px;
-    margin-left: 50px;
+    margin-top: -2em;
+    margin-left: 1em;
+    text-align: center;
     font-size: 1.5em;
     font-weight: bold;
     z-index: 10;
     transition: ease 0.5s;
-    /* animation: damage 3s;
-    animation-iteration-count: initial;
-    transition: ease-in-out; */
+    opacity: 0;
+    animation-name: damage;
+    animation-duration: 1.5s;
+    z-index: 1000;
+    text-shadow: 0.15em 0 0.15em #000, 
+    0 0.15em 0.15em #000, 
+    -0.15em 0 0.15em #000, 
+    0 -0.15em 0.15em #000;
 }
 
-.ship__damage-animation {
-    opacity: 0;
+.ship__repair {
+    color: rgb(0, 107, 27);
 }
 
 @keyframes damage {
     from {
         opacity: 100%;
+        font-size: 1em;
     }
 
     10% {
-        opacity: 0;
+        opacity: 100%;
     }
 
-    to {
+    60% {
+        margin-top: -6.4em;
+        margin-left: 2.2em;
         opacity: 100%;
+    }
+
+    89% {
+        opacity: 20%;
+    }
+
+
+    to {
+        margin-top: -6.4em;
+        margin-left: 2.2em;
+        opacity: 0;
+        font-size: 2.1em;
     }
 }
 
 .ship__hp {
-    width: 150px;
+    width: 125px;
     height: 5.5px;
     position: relative;
     background: #000;
@@ -128,12 +172,14 @@ button:hover {
     height: 100%;
     background: green;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.5);
+    transition: 0.2s linear;
 }
 
 .ship__sh-line {
     width: 100%;
     height: 100%;
     background: rgb(0, 67, 212);
+    transition: 0.2s linear;
 }
 
 .ship__image {
@@ -235,14 +281,13 @@ button:hover {
 }
 
 
-/* PvE */
+/* pve */
 
 .pve {
-    float: right;
-    /* position: fixed;
-    top: 200px;
+    position: fixed;
     left: 100%;
-    margin-left: -200px; */
+    top: 5.6em;
+    margin-left: -140px;
 }
 
 .pve__container {
@@ -250,23 +295,32 @@ button:hover {
     width: 100%;
 }
 
+.pve button {
+    background-color: white;
+    width: 80px;
+    margin: 0 25px;
+}
+
+.pve button:hover {
+    background-color:rgb(255, 72, 0);
+}
+
 .pve__description {
     padding: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 25px;
-    background-color: rgba(69, 83, 69, 0.3);
+    height: 20px;
 }
 
 .pve__description-text {
     color: white;
-    font-size: 1.4em;
+    font-size: 1.2em;
 }
 
 .pve__row {
-    margin: 10px 0 0 0;
     background: rgba(0, 0, 0, 0.5);
+    padding: 0 5px 5px 5px;
 }
 
 .pve__enemies {
@@ -297,12 +351,21 @@ button:hover {
     left: 100%;
     top: 100%;
     margin-left: -90px;
-    margin-top: -65px;
+    margin-top: -104px;
+}
+
+.info button {
+    background-color: rgb(202, 202, 202);
+}
+
+.info button:hover {
+    background-color:rgb(40, 202, 0);
 }
 
 .info button {
     display: inline-block;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
+    padding: 2px;
 }
 
 
@@ -311,6 +374,10 @@ button:hover {
 .shop {
     position: absolute;
     background: rgba(136, 48, 121, 0.3);
+}
+
+.shop button:hover {
+    background-color:rgba(255, 177, 8)
 }
 
 .shop__description {
@@ -327,21 +394,56 @@ button:hover {
     background: rgba(0, 0, 0, 0.2);
 }
 
-.shop-button {
+.shop__buttons {
     position: relative;
     top: -14px;
-    padding: 3px;
+    margin-left: -10px;
+    display: inline-block;
+}
+
+.shop__button {
+    position: relative;
+}
+
+.shop__buy {
+    padding: 2px;
+}
+
+.shop__sell {
+    top: 3px;
+}
+
+.auto {
+    position: fixed;
+    top: 100%;
+    margin-top: -61px;
+    left: 1px;
+}
+
+.auto__button {
+    width: 120px;
+    height: 60px;
+    background: rgb(204, 0, 85);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: white;
+    border-radius: 6px;
+    font-size: 18px;
+}
+
+.auto__button-off {
+    background: rgb(0, 79, 182);
 }
 
 @media (max-width: 600px) {
+    body {
+        font-size: 12px;
+    }
+
     .profile {
         width: 300px;
         margin-left: -300px;
     }
-
-    /* .pve {
-        width: 70px;
-    } */
 
     .ship__image img {
         width: 50%;
@@ -349,11 +451,7 @@ button:hover {
     }
 
     .ship__hp {
-        width: 100px;
-    }
-
-    body {
-        font-size: 12px;
+        width: 85px;
     }
 
     .ship__nickname {
@@ -365,10 +463,18 @@ button:hover {
     }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 450px) {
+    body {
+        font-size: 10px;
+    }
+
     .profile {
         width: 200px;
         margin-left: -200px;
+    }
+
+    .profile__exp {
+        font-size: 0.8em;
     }
 
     .ship__image img {
@@ -377,14 +483,28 @@ button:hover {
     }
 
     .ship__hp {
-        width: 80px;
+        width: 75px;
     }
 
-    body {
-        font-size: 10px;
+    .pve {
+        margin-left: -110px;
+    }
+
+    .pve button {
+        margin: 0 10px;
     }
 
     .shop {
-        width: 90px;
+        width: 125px;
+    }
+
+    .shop__button {
+        position: absolute;
+        top: -25px;
+    }
+
+    .shop__sell {
+        left: 43px;
+        top: -18px;
     }
 }
