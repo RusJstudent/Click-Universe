@@ -3,13 +3,16 @@
     margin: 0;
 }
 
+html {
+    font-size: 15px;
+}
+
 body {
     background: url(../images/bg.jpg) no-repeat;
     background-size: cover;
     z-index: -1;
     overflow: hidden;
 
-    font-size: 15px;
     font-family: sans-serif;
 
     cursor: default;
@@ -28,6 +31,273 @@ body {
 
 button:hover {
     cursor: pointer;
+}
+
+
+/* promo */
+.menu__promo {
+    font-size: 1.8rem;
+}
+
+.promo__header {
+    margin-bottom: 10px;
+}
+
+.menu__promo input {
+    background-color: black;
+    height: 20px;
+    color: white;
+}
+
+.menu__promo-send {
+    width: 40px;
+    padding: 5px;
+}
+
+
+/* info */
+
+.menu__info {
+    flex-direction: column;
+    padding-left: 2vw;
+}
+
+.info__button {
+    padding-bottom: 5px;
+    width: 15rem;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.menu__info span {
+    text-decoration: none;
+    position: relative;
+    color: #5a5a5a;
+    display: inline-block;
+}
+
+.btn-1 {
+    padding: 5px 10px;
+    border: 2px solid #4A90E2;
+    transition: all 300ms ease;
+    box-shadow: 0px 2px 5px 1px rgba(black, 0.2);
+    width: 100%;
+}
+
+.btn-1:hover {
+    color: white; 
+    box-shadow: none;
+    cursor: pointer;
+}
+
+/* equip */
+
+.menu__equip {
+    font-size: inherit;
+}
+
+.equip__header {
+    position: absolute;
+}
+
+.equip__main {
+    margin-top: 40px;
+}
+
+.equip__selected {
+    padding-left: 10px;
+    color: yellow;
+    text-transform: uppercase;
+}
+
+.equip__sell {
+    font-size: inherit;
+    display: none;
+}
+
+.equip__title {
+    display: flex;
+    font-size: 2rem;
+}
+
+.equip__sell-button {
+    margin-left: 15px;
+    text-transform: uppercase;
+    display: inline;
+    background-color: rgb(255, 10, 51);
+    color: white;
+    height: 30px;
+    width: 80px;
+}
+
+.equip__content img {
+    margin-right: 3px;
+}
+
+.equip__content img:hover {
+    cursor: pointer;
+}
+
+.equip__item-title {
+    font-size: 2.2rem;
+}
+
+.equip__item-text {
+    font-size: 0.9em;
+}
+
+.equip__guns-title {
+    color: rgb(255, 51, 0);
+}
+
+.equip__shields-title {
+    color: rgb(0, 110, 255);
+}
+
+/* shop */
+
+.menu__shop {
+    height: 100%;
+    display: block;
+}
+
+.menu__shop button:hover {
+    background-color:rgba(255, 177, 8)
+}
+
+.shop__items {
+    font-size: 25px;
+    padding: 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100%;
+}
+
+.shop__item {
+    width: 100%;
+    border-top: 2px solid red;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+}
+
+.shop__item-name {
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 5px 0 0 10px;
+    margin-bottom: 1vh;
+    color: rgb(0, 144, 180);
+}
+
+.shop__item-description {
+    font-size: 0.8em;
+}
+
+.shop__sell {
+    top: 3px;
+}
+
+.shop__button {
+    position: relative;
+    top: -20px;
+    left: 5px;
+    padding: 5px;
+    width: 80px;
+    font-size: 15px;
+}
+
+
+/* menu */
+
+.menu {
+    position: fixed;
+    width: 62vw;
+    height: 62vh;
+    background: rgba(0, 0, 0, 0.7);
+    left: 50%;
+    top: 50%;
+    margin-left: -31vw;
+    margin-top: -31vh;
+    z-index: 100;
+
+    font-size: 2vw;
+    color: white;
+    font-family: 'Times New Roman', Times, sans-serif;
+
+    grid-template-columns: 2fr 12fr;
+    grid-template-areas: "nav content";
+    display: none;
+}
+
+.menu__content {
+    grid-area: content;
+    overflow: auto;
+    position: relative;
+}
+
+.menu__container {
+    margin: 10px;
+}
+
+.menu__section {
+    position: absolute;
+    display: none;
+}
+
+.menu__nav {
+    grid-area: nav;
+    background-color: rgb(21, 27, 49);
+    font-family: 'Pathway Gothic One', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menu__nav-container {
+    flex: 1 1 auto;
+}
+
+.menu__nav-content {
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menu__nav-elem {
+    background: linear-gradient(to right bottom, rgb(56, 56, 104) 50%, #660074 70%);
+    border-top: 0.3vh groove rgb(255, 194, 82);
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 2px 0 3px black;
+}
+
+.menu__nav-elem:hover {
+    background: linear-gradient(to right bottom, rgb(255, 38, 0) 50%, #660074 70%);
+}
+
+.menu__nav-elem:first-child {
+    border: none;
+}
+
+.menu__nav-elem-text {
+    text-align: center;
+}
+
+.menu__quit {
+    background: rgb(16, 16, 53);
+    cursor: pointer;
+    text-align: center;
+}
+
+.menu__quit:hover {
+    background-color: rgb(16, 61, 99);
 }
 
 
@@ -68,14 +338,6 @@ button:hover {
     font-size: 1.25em;
 }
 
-/* .profile__value {
-    padding-left: 0.08em;
-}
-
-.profile__rnk {
-    letter-spacing: 0.05em;
-} */
-
 
 /* ship */
 
@@ -109,17 +371,16 @@ button:hover {
     letter-spacing: 0.1em;
     top: 50%;
     left: 50%;
-    margin-top: -2em;
-    margin-left: 1em;
+    margin-top: -3.6em;
+    margin-left: 1.4em;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 0.7em;
     font-weight: bold;
     z-index: 10;
     transition: ease 0.5s;
     opacity: 0;
     animation-name: damage;
     animation-duration: 1.5s;
-    z-index: 1000;
     text-shadow: 0.15em 0 0.15em #000, 
     0 0.15em 0.15em #000, 
     -0.15em 0 0.15em #000, 
@@ -133,29 +394,22 @@ button:hover {
 @keyframes damage {
     from {
         opacity: 100%;
-        font-size: 1em;
-    }
-
-    10% {
-        opacity: 100%;
     }
 
     60% {
-        margin-top: -6.4em;
+        margin-top: -6.2em;
         margin-left: 2.2em;
+    }
+
+    80% {
+        font-size: 2em;
         opacity: 100%;
     }
 
-    89% {
-        opacity: 20%;
-    }
-
-
     to {
-        margin-top: -6.4em;
-        margin-left: 2.2em;
-        opacity: 0;
-        font-size: 2.1em;
+        margin-top: -6.25em;
+        margin-left: 2.23em;
+        font-size: 2em;
     }
 }
 
@@ -202,8 +456,8 @@ button:hover {
 
 .ship__warrank img {
     position: absolute;
-    left: -36px;
-    top: -18px;
+    left: -42px;
+    top: -19px;
 }
 
 .ship__nickname {
@@ -286,7 +540,7 @@ button:hover {
 .pve {
     position: fixed;
     left: 100%;
-    top: 5.6em;
+    top: 6em;
     margin-left: -140px;
 }
 
@@ -344,74 +598,7 @@ button:hover {
 }
 
 
-/* information */
-
-.info {
-    position: fixed;
-    left: 100%;
-    top: 100%;
-    margin-left: -90px;
-    margin-top: -104px;
-}
-
-.info button {
-    background-color: rgb(202, 202, 202);
-}
-
-.info button:hover {
-    background-color:rgb(40, 202, 0);
-}
-
-.info button {
-    display: inline-block;
-    margin-bottom: 3px;
-    padding: 2px;
-}
-
-
-/* shop */
-
-.shop {
-    position: absolute;
-    background: rgba(136, 48, 121, 0.3);
-}
-
-.shop button:hover {
-    background-color:rgba(255, 177, 8)
-}
-
-.shop__description {
-    font-size: 1.3em;
-    text-align: center;
-    color: rgb(27, 255, 198);
-    padding: 0.5em 0;
-}
-
-.shop__items {
-    font-size: 25px;
-    color: red;
-    padding: 0 10px;
-    background: rgba(0, 0, 0, 0.2);
-}
-
-.shop__buttons {
-    position: relative;
-    top: -14px;
-    margin-left: -10px;
-    display: inline-block;
-}
-
-.shop__button {
-    position: relative;
-}
-
-.shop__buy {
-    padding: 2px;
-}
-
-.shop__sell {
-    top: 3px;
-}
+/* buttons */
 
 .auto {
     position: fixed;
@@ -435,14 +622,41 @@ button:hover {
     background: rgb(0, 79, 182);
 }
 
-@media (max-width: 600px) {
-    body {
+.wrapper__menu-button {
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    z-index: 100;
+    left: 50%;
+    top: 100%;
+    margin-top: -70px;
+    margin-left: -35px;
+    background: url('../images/icons/menu.svg') no-repeat;
+    background-size: cover;
+    cursor: pointer;
+}
+
+@media (max-width: 1199px) {
+    .menu {
+        grid-template-columns: 2fr 11fr;
+    }
+}
+
+@media (max-width: 991px) {
+    .menu {
+        font-size: 2.3vw;
+    }
+}
+
+
+@media (max-width: 767px) {
+    html {
         font-size: 12px;
     }
 
     .profile {
-        width: 300px;
-        margin-left: -300px;
+        width: 320px;
+        margin-left: -320px;
     }
 
     .ship__image img {
@@ -458,23 +672,34 @@ button:hover {
         letter-spacing: 1.2px;
     }
 
-    .shop-button {
-        top: -9px;
+    .menu {
+        width: 96vw;
+        height: 80vh;
+        margin-left: -48vw;
+        margin-top: -40vh;
+        font-size: 3.3vw;
+    }
+
+    .menu__quit {
+        padding: 7px 0;
+    }
+
+    .wrapper__menu-button {
+        width: 60px;
+        height: 60px;
+        margin-top: -60px;
+        margin-left: -30px;
     }
 }
 
-@media (max-width: 450px) {
-    body {
+@media (max-width: 576px) {
+    html {
         font-size: 10px;
     }
 
     .profile {
-        width: 200px;
-        margin-left: -200px;
-    }
-
-    .profile__exp {
-        font-size: 0.8em;
+        width: 260px;
+        margin-left: -260px;
     }
 
     .ship__image img {
@@ -487,24 +712,26 @@ button:hover {
     }
 
     .pve {
-        margin-left: -110px;
+        margin-left: -85px;
     }
 
     .pve button {
-        margin: 0 10px;
+        margin: 0 0;
+        width: 75px;
+    }
+    
+    .auto__button {
+        width: 80px;
+        letter-spacing: 1px;
+        font-size: 15px;
     }
 
-    .shop {
-        width: 125px;
-    }
-
-    .shop__button {
-        position: absolute;
-        top: -25px;
-    }
-
-    .shop__sell {
-        left: 43px;
-        top: -18px;
+    .menu {
+        width: 96vw;
+        height: 80vh;
+        margin-left: -48vw;
+        margin-top: -40vh;
+        font-size: 4.5vw;
+        grid-template-columns: 2fr 9fr;
     }
 }

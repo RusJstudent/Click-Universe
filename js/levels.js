@@ -40,7 +40,7 @@ const ranks = [
     [6, 8e6, 'Colonel'],
     [7, 18e6, 'Major general'],
     [8, 37e6, 'Lieut general'],
-    [9, 65e6, 'Colon general'],
+    [9, 65e6, 'Colonel general'],
     [10, 150e6, 'Marshal'],
     [11, Infinity],
 ];

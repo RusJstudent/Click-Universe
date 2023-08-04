@@ -1,4 +1,4 @@
-export {buyItem, sellItem, upgradeShip, setUpgradeButton, buyDrone, setDroneButton};
+export {buyItem, upgradeShip, setUpgradeButton, buyDrone, setDroneButton};
 
 function calcEquipItems(user, type) {
     const equip = user.equip;
@@ -41,26 +41,6 @@ function buyItem(user, equip, button, sound) {
     if (itemType === 'db') user.maxSh += equip[itemName];
 
     user.equip[itemName]++;
-
-    return true;
-}
-
-function sellItem(user, equip, button, sound) {
-    const itemName = button.dataset.name;
-    const itemType = itemName.slice(0, 2);
-
-    if (user.equip[itemName] === 0) {
-        alert(`You have no ${itemName}`);
-        return;
-    }
-
-    sound.currentTime = 0;
-    sound.play();
-
-    if (itemType === 'lg') user.damage -= equip[itemName];
-    if (itemType === 'db') user.maxSh -= equip[itemName];
-
-    user.equip[itemName]--;
 
     return true;
 }

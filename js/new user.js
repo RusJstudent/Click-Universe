@@ -42,4 +42,6 @@ const newUser = {
     },
     registration: now,
     destroys: zeroDestroys,
-}
+    promo: [],
+    version: 9,
+};
