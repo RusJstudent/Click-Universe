@@ -7,27 +7,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Click Universe</title>
     <link rel="stylesheet" href="css/style.css">
-    <script defer src="js/script.js"></script>
+    <script type="module" src="js/script.js"></script>
 </head>
 
 <body>
     <div class="wrapper">
-        <!-- <div class="shop">
+
+        <div class="shop">
             <div class="shop__description">
-                Here you can buy items you want
+                Shop
             </div>
             <div class="shop__items">
-                <div class="shop__item-1">
-                    <span class="shop__name">LG-1</span><button class="shop-button" data-btc="40000" id="lg1">buy for 40 000 btc</button>
+                <div>
+                    <img src="images/equipment/lg1.png" width="40" height="40" alt="laser gun 1">
+                    <button class="shop-button" data-btc="40e3" data-name="lg1">40k btc</button>
                 </div>
-                <div class="shop__item-2">
-                    <span class="shop__name">LG-2</span><button class="shop-button" data-btc="400000" id="lg2">buy for 400 000 btc</button>
+                <div>
+                    <img src="images/equipment/lg2.png" width="40" height="40" alt="laser gun 2">
+                    <button class="shop-button" data-btc="250e3" data-name="lg2">250k btc</button>
                 </div>
-                <div class="shop__item-3">
-                    <span class="shop__name">LG-3</span><button class="shop-button" data-plt="10000" id="lg3">buy for 10 000 plt</button>
+                <div>
+                    <img src="images/equipment/lg3.png" width="40" height="40" alt="laser gun 3">
+                    <button class="shop-button" data-plt="10e3" data-name="lg3">10k plt</button>
+                </div>
+                <div>
+                    <img src="images/equipment/db1.png" width="40" height="40" alt="shield 1">
+                    <button class="shop-button" data-btc="100e3" data-name="db1">100k btc</button>
+                </div>
+                <div>
+                    <img src="images/equipment/db2.png" width="40" height="40" alt="shield 2">
+                    <button class="shop-button" data-btc="5000e3" data-name="db2">5m btc</button>
+                </div>
+                <div>
+                    <img src="images/equipment/db3.png" width="40" height="40" alt="shield 3">
+                    <button class="shop-button" data-plt="30e3" data-name="db3">30k plt</button>
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <div class="profile">
             <div class="exp profile__inner"><span class="stats">exp</span><span class="profile__value" id="exp">0</span></div>
@@ -39,13 +55,15 @@
         <div class="ship-wrapper">
             <div class="ship">
 
+                <div class="ship__damage ship__damage-animation"></div>
+
                 <div class="ship__above">
                     <div class="ship__hp">
                         <div class="ship__hp-line"></div>
                     </div>
-                    <!-- <div class="ship__hp">
+                    <div class="ship__hp">
                         <div class="ship__sh-line"></div>
-                    </div> -->
+                    </div>
                 </div>
 
                 <div class="ship__image">
@@ -54,13 +72,20 @@
 
                 <div class="ship__below">
                     <div class="ship__rank">
-                        <div id="ranks" class="ranks rank1"></div>
+                        <div id="ranks" class="rank1"></div>
                     </div>
-                    <div class="ship__nickname">Your Nickname</div>
+                    <div class="ship__warrank">
+                        <!-- <img src="images/icons/warranks/wr_1.png" alt="war-rank 1">
+                        <img src="images/icons/warranks/wr_2.png" alt="war-rank 2">
+                        <img src="images/icons/warranks/wr_3.png" alt="war-rank 3">
+                        <img src="images/icons/warranks/wr_4.png" alt="war-rank 4"> -->
+                    </div>
+                    <div class="ship__nickname"></div>
                 </div>
 
                 <div class="ship__bottom">
-                    <div class="hitpoints"><span id="hp_value">276000</span> / 276000</div>
+                    <div class="hitpoints"><span id="hp_value"></span> / <span id="hp_max"></span></div>
+                    <div class="hitpoints"><span id="sh_value"></span> / <span id="sh_max"></span></div>
                 </div>
 
             </div>
@@ -74,50 +99,58 @@
                 <div class="pve__row">
                     <div class="pve__enemies">
                         <div class="pve__enemy">
-                            <button data-enemy="hydro" class="hydro pve__button">Hydro</button>
+                            <button data-enemy="hydro">Hydro</button>
                         </div>
                         <div class="pve__enemy">
-                            <button data-enemy="jenta" class="jenta pve__button">Jenta</button>
+                            <button data-enemy="jenta">Jenta</button>
                         </div>
                         <div class="pve__enemy">
-                            <button data-enemy="mali" class="mali pve__button">Mali</button>
+                            <button data-enemy="mali">Mali</button>
                         </div>
                         <div class="pve__enemy">
-                            <button data-enemy="plarion" class="plarion pve__button">Plarion</button>
+                            <button data-enemy="plarion">Plarion</button>
                         </div>
                         <div class="pve__enemy">
-                            <button data-enemy="motron" class="motron pve__button">Motron</button>
+                            <button data-enemy="motron">Motron</button>
                         </div>
                         <div class="pve__enemy">
-                            <button data-enemy="xeon" class="xeon pve__button">Xeon</button>
+                            <button data-enemy="xeon">Xeon</button>
                         </div>
                         <div class="pve__enemy">
-                            <button data-enemy="bangoliour" class="bangoliour pve__button">Bangoliour</button>
+                            <button data-enemy="bangoliour">Bangoliour</button>
                         </div>
                         <div class="pve__enemy">
-                            <button data-enemy="zavientos" class="zavientos pve__button">Zavientos</button>
+                            <button data-enemy="zavientos">Zavientos</button>
                         </div>
                         <div class="pve__enemy">
-                            <button data-enemy="magmius" class="magmius pve__button">Magmius</button>
+                            <button data-enemy="magmius">Magmius</button>
                         </div>
                         <div class="pve__enemy">
-                            <button data-enemy="quattroid" class="quattroid pve__button">Quattroid</button>
+                            <button data-enemy="quattroid">Quattroid</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="info__destroys">
-            <button id="info__destroys">
-                Show my destroys
-            </button>
-        </div>
+        <div class="info">
+            <div class="info__destroys">
+                <button id="info__destroys">
+                    My destroys
+                </button>
+            </div>
 
-        <div class="info__about">
-            <button id="info__about">
-                About this game
-            </button>
+            <div class="info__how">
+                <button id="info__how">
+                    How to play
+                </button>
+            </div>
+    
+            <div class="info__about">
+                <button id="info__about">
+                    Game about
+                </button>
+            </div>
         </div>
     </div>
 </body>

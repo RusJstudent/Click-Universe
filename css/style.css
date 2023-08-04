@@ -10,6 +10,9 @@ body {
 
     font-size: 15px;
     font-family: sans-serif;
+
+    touch-action: none;
+    cursor: default;
 }
 
 .wrapper {
@@ -18,6 +21,7 @@ body {
 
 button:hover {
     background-color:rgba(136, 48, 121);
+    cursor: pointer;
 }
 
 
@@ -72,32 +76,71 @@ button:hover {
     flex-direction: column;
     overflow: hidden;
     position: relative;
-    top: -28px;
+    top: -18px;
+}
+
+.ship__damage {
+    position: absolute;
+    color: rgb(204, 151, 5);
+    /* text-shadow: inset 0px 0px 2px black; */
+    letter-spacing: 0.1em;
+    top: 50%;
+    left: 50%;
+    margin-top: -140px;
+    margin-left: 50px;
+    font-size: 1.5em;
+    font-weight: bold;
+    z-index: 10;
+    transition: ease 0.5s;
+    /* animation: damage 3s;
+    animation-iteration-count: initial;
+    transition: ease-in-out; */
+}
+
+.ship__damage-animation {
+    opacity: 0;
+}
+
+@keyframes damage {
+    from {
+        opacity: 100%;
+    }
+
+    10% {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100%;
+    }
 }
 
 .ship__hp {
     width: 150px;
-    height: 7px;
+    height: 5.5px;
     position: relative;
     background: #000;
+    margin-bottom: 2px;
 }
 
 .ship__hp-line {
     width: 100%;
     height: 100%;
     background: green;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.5);
 }
 
 .ship__sh-line {
     width: 100%;
     height: 100%;
-    background: rgb(19, 22, 170);
+    background: rgb(0, 67, 212);
 }
 
 .ship__image {
     display: flex;
     justify-content: center;
     align-items: center;
+    transform: rotate(0deg);
 }
 
 .ship__below {
@@ -107,75 +150,87 @@ button:hover {
     margin-top: 10px;
 }
 
+.ship__warrank {
+    position: relative;
+}
+
+.ship__warrank img {
+    position: absolute;
+    left: -36px;
+    top: -18px;
+}
+
 .ship__nickname {
     font-size: 1.3em;
     color: white;
     letter-spacing: 1.9px;
 }
 
-.hitpoints {
+.ship__bottom {
+    font-size: 0.9em;
+    text-align: center;
+    letter-spacing: 1.2px;
     color: white;
 }
 
-.ship__bottom {
-    text-align: center;
-    letter-spacing: 0.7px;
+.hitpoints {
+    margin-bottom: 1px;
 }
 
-.ranks {
+#ranks {
     background: url(../images/icons/ranks.png) no-repeat;
     height: 32px;
     width: 20px;
     position: relative;
     top: 6px;
-    left: -5px;
+    left: -6px;
 }
 
-.rank1 {
+#ranks.rank1 {
     background-position: -140px 0;
 }
 
-.rank2 {
+#ranks.rank2 {
     background-position: -180px 0;
 }
 
-.rank3 {
+#ranks.rank3 {
     background-position: -60px 0;
 }
 
-.rank4 {
+#ranks.rank4 {
     background-position: -120px 0;
 }
 
-.rank5 {
+#ranks.rank5 {
     background-position: -220px 0;
 }
 
-.rank6 {
+#ranks.rank6 {
     background-position: -20px 0;
 }
 
-.rank7 {
+#ranks.rank7 {
     background-position: -80px 0;
 }
 
-.rank8 {
+#ranks.rank8 {
     background-position: 0 0;
 }
 
-.rank9 {
+#ranks.rank9 {
     background-position: -160px 0;
 }
 
-.rank10 {
+#ranks.rank10 {
     background-position: -100px 0;
 }
 
-.rank0 {
+#ranks.rankO {
     background-position: -200px 0;
 }
 
-.rankA {
+#ranks.rankA {
     background-position: -40px 0;
 }
 
@@ -229,41 +284,40 @@ button:hover {
     margin: 3px 0;
 }
 
-.pve__button {
+.pve__enemy button {
     padding: 3px;
     border-radius: 5px;
 }
 
-.info__destroys {
+
+/* information */
+
+.info {
     position: fixed;
     left: 100%;
-    margin-left: -100px;
     top: 100%;
-    margin-top: -35px;
+    margin-left: -90px;
+    margin-top: -65px;
 }
 
-.info__about {
-    position: fixed;
-    left: 100%;
-    margin-left: -200px;
-    top: 100%;
-    margin-top: -20px;
+.info button {
+    display: inline-block;
+    margin-bottom: 2px;
 }
+
 
 /* shop */
 
 .shop {
     position: absolute;
-    height: 500px;
-    width: 300px;
     background: rgba(136, 48, 121, 0.3);
 }
 
 .shop__description {
-    font-size: 20px;
+    font-size: 1.3em;
     text-align: center;
-    height: 50px;
-    color: rgb(22, 173, 22);
+    color: rgb(27, 255, 198);
+    padding: 0.5em 0;
 }
 
 .shop__items {
@@ -271,16 +325,11 @@ button:hover {
     color: red;
     padding: 0 10px;
     background: rgba(0, 0, 0, 0.2);
-    height: 200px;
-}
-
-.shop__name {
-    padding-right: 15px;
 }
 
 .shop-button {
-    height: 25px;
-    /* width: 50px; */
+    position: relative;
+    top: -14px;
     padding: 3px;
 }
 
@@ -310,12 +359,16 @@ button:hover {
     .ship__nickname {
         letter-spacing: 1.2px;
     }
+
+    .shop-button {
+        top: -9px;
+    }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 420px) {
     .profile {
-        width: 250px;
-        margin-left: -250px;
+        width: 200px;
+        margin-left: -200px;
     }
 
     .ship__image img {
@@ -329,5 +382,9 @@ button:hover {
 
     body {
         font-size: 10px;
+    }
+
+    .shop {
+        width: 90px;
     }
 }
